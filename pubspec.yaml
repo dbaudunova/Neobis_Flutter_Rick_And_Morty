@@ -30,6 +30,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  json_annotation: ^4.8.1
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -40,6 +41,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  build_runner:
+  json_serializable: ^6.7.1
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -70,6 +73,7 @@ flutter:
     - assets/svg/sort_desc.svg
     - assets/png/not_exist.png
     - assets/png/filter_not_found.png
+    - assets/png/avatar.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
