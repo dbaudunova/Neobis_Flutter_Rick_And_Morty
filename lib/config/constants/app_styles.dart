@@ -51,4 +51,17 @@ class Styles {
     color: AppColors.appTextColor,
     letterSpacing: 0.15,
   );
+
+  static TextStyle filterText = const TextStyle(
+    fontSize: 20,
+    color: Colors.white,
+    fontWeight: FontWeight.bold,
+    letterSpacing: 0.15,
+  );
+
+  static TextStyle alphabetText = const TextStyle(
+    fontSize: 16,
+    color: Colors.white,
+    letterSpacing: 0.15,
+  );
 }

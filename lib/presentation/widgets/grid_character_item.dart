@@ -16,8 +16,10 @@ class GridCharacterItem extends StatelessWidget {
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(100),
-          child: const Image(
-            image: AssetImage('assets/png/avatar.png'),
+          child: Image(
+            width: 120,
+            height: 120,
+            image: NetworkImage(character.image),
           ),
         ),
         Text(

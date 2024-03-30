@@ -7,7 +7,6 @@ void main() => runApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           scaffoldBackgroundColor: AppColors.appColor,
-          fontFamily: 'Roboto',
         ),
         home: const CharacterCatalog(),
       ),

@@ -16,8 +16,10 @@ class ListCharacterItem extends StatelessWidget {
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(100),
-          child: const Image(
-            image: AssetImage('assets/png/avatar.png'),
+          child: Image(
+            width: 74,
+            height: 74,
+            image: NetworkImage(character.image),
           ),
         ),
         const SizedBox(width: 18),

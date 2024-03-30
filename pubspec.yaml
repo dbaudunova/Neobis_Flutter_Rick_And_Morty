@@ -73,8 +73,6 @@ flutter:
     - assets/svg/sort_desc.svg
     - assets/png/not_exist.png
     - assets/png/filter_not_found.png
-    - assets/png/avatar.png
-
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

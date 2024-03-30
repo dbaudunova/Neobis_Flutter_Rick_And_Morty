@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:neobis_flutter_rick_and_morty/config/constants/app_colors.dart';
 import 'package:neobis_flutter_rick_and_morty/config/constants/app_assets.dart';
-import 'package:neobis_flutter_rick_and_morty/config/constants/app_styles.dart';
 import 'package:neobis_flutter_rick_and_morty/data/remote/models/character.dart';
 import 'package:neobis_flutter_rick_and_morty/presentation/pages/filters.dart';
 import 'package:neobis_flutter_rick_and_morty/presentation/widgets/character_count_widget.dart';
 import 'package:neobis_flutter_rick_and_morty/presentation/widgets/grid_character_item.dart';
 import 'package:neobis_flutter_rick_and_morty/presentation/widgets/list_character_item.dart';
+import 'package:neobis_flutter_rick_and_morty/presentation/widgets/search_bar_style.dart';
 
 class CharacterCatalog extends StatefulWidget {
   const CharacterCatalog({super.key});
@@ -26,7 +25,7 @@ class _CharacterCatalogState extends State<CharacterCatalog> {
       status: 'Живой',
       species: 'Человек',
       gender: 'мужской',
-      image: '',
+      image: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
     ),
     Character(
       id: 1,
@@ -34,7 +33,7 @@ class _CharacterCatalogState extends State<CharacterCatalog> {
       status: 'Живой',
       species: 'Человек',
       gender: 'мужской',
-      image: '',
+      image: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
     ),
     Character(
       id: 2,
@@ -42,7 +41,7 @@ class _CharacterCatalogState extends State<CharacterCatalog> {
       status: 'Живой',
       species: 'Человек',
       gender: 'мужской',
-      image: '',
+      image: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
     ),
     Character(
       id: 3,
@@ -50,7 +49,7 @@ class _CharacterCatalogState extends State<CharacterCatalog> {
       status: 'Живой',
       species: 'Человек',
       gender: 'мужской',
-      image: '',
+      image: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
     ),
     Character(
       id: 4,
@@ -58,7 +57,7 @@ class _CharacterCatalogState extends State<CharacterCatalog> {
       status: 'Живой',
       species: 'Человек',
       gender: 'мужской',
-      image: '',
+      image: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
     ),
     Character(
       id: 5,
@@ -66,7 +65,7 @@ class _CharacterCatalogState extends State<CharacterCatalog> {
       status: 'Живой',
       species: 'Человек',
       gender: 'мужской',
-      image: '',
+      image: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
     ),
     Character(
       id: 6,
@@ -74,7 +73,7 @@ class _CharacterCatalogState extends State<CharacterCatalog> {
       status: 'Живой',
       species: 'Человек',
       gender: 'мужской',
-      image: '',
+      image: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
     ),
     Character(
       id: 7,
@@ -82,7 +81,7 @@ class _CharacterCatalogState extends State<CharacterCatalog> {
       status: 'Живой',
       species: 'Человек',
       gender: 'мужской',
-      image: '',
+      image: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
     ),
   ];
 
@@ -94,24 +93,8 @@ class _CharacterCatalogState extends State<CharacterCatalog> {
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-              child: SearchBar(
-                elevation: MaterialStateProperty.all(0),
-                backgroundColor: MaterialStateColor.resolveWith(
-                  (states) => AppColors.searchBarBackground,
-                ),
-                hintText: 'Найти персонажа',
-                hintStyle: MaterialStateTextStyle.resolveWith(
-                  (states) => Styles.searchBar,
-                ),
-                shape: MaterialStateProperty.all(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(100),
-                  ),
-                ),
-                leading: Padding(
-                  padding: const EdgeInsets.only(top: 12, bottom: 12, left: 12),
-                  child: SvgPicture.asset(AppAssets.search),
-                ),
+              child: SearchBarStyle(
+                hint: 'Найти персонажа',
                 trailing: [
                   IconButton(
                     onPressed: () {
