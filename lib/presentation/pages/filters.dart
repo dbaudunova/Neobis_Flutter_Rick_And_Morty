@@ -25,9 +25,26 @@ class _FiltersState extends State<Filters> {
     {'name': 'Бесполый', "isChecked": false},
   ];
 
-  void _selectCheckbox(Map<dynamic, dynamic> list, bool? val) {
+  bool get _anyCheckboxSelected {
+    List<Map> allLists = [..._statusList, ..._genderList];
+    return allLists.any((element) => element['isChecked']);
+  }
+
+  void _selectCheckbox(Map list, bool? val) {
     setState(() {
       list['isChecked'] = val;
+    });
+  }
+
+  void _clearFilters() {
+    setState(() {
+      for (var element in _statusList) {
+        element['isChecked'] = false;
+      }
+
+      for (var element in _genderList) {
+        element['isChecked'] = false;
+      }
     });
   }
 
@@ -38,6 +55,9 @@ class _FiltersState extends State<Filters> {
         toolbarHeight: 52,
         iconTheme: const IconThemeData(color: Colors.white),
         backgroundColor: AppColors.searchBarBackground,
+        actions: [
+          if (_anyCheckboxSelected) _buildIconButton(),
+        ],
         title: Text(
           'Фильтры',
           style: Styles.filterText,
@@ -80,7 +100,7 @@ class _FiltersState extends State<Filters> {
               child: Divider(color: AppColors.searchBarBackground),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 16,bottom: 24),
+              padding: const EdgeInsets.only(left: 16, bottom: 24),
               child: Text(
                 'Статус'.toUpperCase(),
                 style: Styles.countAndResult,
@@ -102,7 +122,7 @@ class _FiltersState extends State<Filters> {
               child: Divider(color: AppColors.searchBarBackground),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 16,bottom: 24),
+              padding: const EdgeInsets.only(left: 16, bottom: 24),
               child: Text(
                 'Пол'.toUpperCase(),
                 style: Styles.countAndResult,
@@ -120,6 +140,20 @@ class _FiltersState extends State<Filters> {
               }).toList(),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  IconButton _buildIconButton() {
+    return IconButton(
+      onPressed: () {
+        _clearFilters();
+      },
+      icon: Padding(
+        padding: const EdgeInsets.only(right: 15),
+        child: SvgPicture.asset(
+          AppAssets.deleteFilter,
         ),
       ),
     );

@@ -22,9 +22,12 @@ class GridCharacterItem extends StatelessWidget {
             image: NetworkImage(character.image),
           ),
         ),
-        Text(
-          character.status.toUpperCase(),
-          style: Styles.statusAlive,
+        Padding(
+          padding: const EdgeInsets.only(top: 12),
+          child: Text(
+            character.status.toUpperCase(),
+            style: Styles.statusAlive,
+          ),
         ),
         Text(
           character.name,
