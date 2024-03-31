@@ -8,6 +8,5 @@ class AppColors {
   static Color episode = const Color(0xDE22A2BD);
   static Color appTextColor = const Color(0xFF5B6975);
   static Color dateColor = const Color(0x996E798C);
-  static Color searchBarTextColor = const Color(0xFF152A3A);
   static Color searchBarBackground = const Color(0xFF152A3A);
 }

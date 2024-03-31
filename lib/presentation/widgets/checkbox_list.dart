@@ -23,7 +23,7 @@ class CheckboxList extends StatelessWidget {
         value: value,
         title: Text(
           text,
-          style: Styles.alphabetText,
+          style: AppStyles.searchBar.copyWith(color: Colors.white),
         ),
         onChanged: onChanged);
   }

@@ -6,38 +6,43 @@ class GridCharacterItem extends StatelessWidget {
   const GridCharacterItem({
     super.key,
     required this.character,
+    required this.onTap,
   });
 
   final Character character;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(100),
-          child: Image(
-            width: 120,
-            height: 120,
-            image: NetworkImage(character.image),
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(100),
+            child: Image(
+              width: 120,
+              height: 120,
+              image: NetworkImage(character.image),
+            ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 12),
-          child: Text(
-            character.status.toUpperCase(),
-            style: Styles.statusAlive,
+          Padding(
+            padding: const EdgeInsets.only(top: 12),
+            child: Text(
+              character.status.toUpperCase(),
+              style: AppStyles.statusAlive,
+            ),
           ),
-        ),
-        Text(
-          character.name,
-          style: Styles.nameStyle,
-        ),
-        Text(
-          '${character.species}, ${character.gender}',
-          style: Styles.raceStyle,
-        ),
-      ],
+          Text(
+            character.name,
+            style: AppStyles.nameStyle,
+          ),
+          Text(
+            '${character.species}, ${character.gender}',
+            style: AppStyles.raceStyle,
+          ),
+        ],
+      ),
     );
   }
 }

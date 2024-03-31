@@ -23,7 +23,7 @@ class SearchBarStyle extends StatelessWidget {
       ),
       hintText: hint,
       hintStyle: MaterialStateTextStyle.resolveWith(
-        (states) => Styles.searchBar,
+        (states) => AppStyles.searchBar,
       ),
       shape: MaterialStateProperty.all(
         RoundedRectangleBorder(

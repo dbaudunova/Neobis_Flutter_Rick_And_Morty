@@ -25,29 +25,6 @@ class _FiltersState extends State<Filters> {
     {'name': 'Бесполый', "isChecked": false},
   ];
 
-  bool get _anyCheckboxSelected {
-    List<Map> allLists = [..._statusList, ..._genderList];
-    return allLists.any((element) => element['isChecked']);
-  }
-
-  void _selectCheckbox(Map list, bool? val) {
-    setState(() {
-      list['isChecked'] = val;
-    });
-  }
-
-  void _clearFilters() {
-    setState(() {
-      for (var element in _statusList) {
-        element['isChecked'] = false;
-      }
-
-      for (var element in _genderList) {
-        element['isChecked'] = false;
-      }
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,7 +37,7 @@ class _FiltersState extends State<Filters> {
         ],
         title: Text(
           'Фильтры',
-          style: Styles.filterText,
+          style: AppStyles.filterText,
         ),
       ),
       body: SafeArea(
@@ -74,7 +51,7 @@ class _FiltersState extends State<Filters> {
               ),
               child: Text(
                 'Сортировать'.toUpperCase(),
-                style: Styles.countAndResult,
+                style: AppStyles.countAndResult,
               ),
             ),
             Row(
@@ -82,7 +59,9 @@ class _FiltersState extends State<Filters> {
                 const SizedBox(width: 16),
                 Text(
                   'По алфавиту',
-                  style: Styles.alphabetText,
+                  style: AppStyles.searchBar.copyWith(
+                    color: Colors.white,
+                  ),
                 ),
                 const Spacer(),
                 SvgPicture.asset(AppAssets.sortAsc),
@@ -103,7 +82,7 @@ class _FiltersState extends State<Filters> {
               padding: const EdgeInsets.only(left: 16, bottom: 24),
               child: Text(
                 'Статус'.toUpperCase(),
-                style: Styles.countAndResult,
+                style: AppStyles.countAndResult,
               ),
             ),
             Column(
@@ -125,7 +104,7 @@ class _FiltersState extends State<Filters> {
               padding: const EdgeInsets.only(left: 16, bottom: 24),
               child: Text(
                 'Пол'.toUpperCase(),
-                style: Styles.countAndResult,
+                style: AppStyles.countAndResult,
               ),
             ),
             Column(
@@ -157,5 +136,28 @@ class _FiltersState extends State<Filters> {
         ),
       ),
     );
+  }
+
+  bool get _anyCheckboxSelected {
+    List<Map> allLists = [..._statusList, ..._genderList];
+    return allLists.any((element) => element['isChecked']);
+  }
+
+  void _selectCheckbox(Map list, bool? val) {
+    setState(() {
+      list['isChecked'] = val;
+    });
+  }
+
+  void _clearFilters() {
+    setState(() {
+      for (var element in _statusList) {
+        element['isChecked'] = false;
+      }
+
+      for (var element in _genderList) {
+        element['isChecked'] = false;
+      }
+    });
   }
 }
