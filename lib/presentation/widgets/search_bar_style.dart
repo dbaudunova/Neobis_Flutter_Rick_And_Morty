@@ -17,6 +17,9 @@ class SearchBarStyle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SearchBar(
+      textStyle: MaterialStateTextStyle.resolveWith(
+        (states) => const TextStyle(color: Colors.white, fontSize: 16),
+      ),
       elevation: MaterialStateProperty.all(0),
       backgroundColor: MaterialStateColor.resolveWith(
         (states) => AppColors.searchBarBackground,

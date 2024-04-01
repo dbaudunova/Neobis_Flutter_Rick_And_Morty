@@ -116,6 +116,10 @@ class _CharacterCatalogState extends State<CharacterCatalog> {
               child: SearchBarStyle(
                 hint: 'Найти персонажа',
                 trailing: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 10),
+                    child: SvgPicture.asset(AppAssets.line),
+                  ),
                   IconButton(
                     onPressed: () {
                       _filterNavigate(context);

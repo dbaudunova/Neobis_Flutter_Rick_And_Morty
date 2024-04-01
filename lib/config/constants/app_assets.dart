@@ -6,6 +6,7 @@ class AppAssets {
   static String search = 'assets/svg/search.svg';
   static String sortAsc = 'assets/svg/sort_asc.svg';
   static String sortDesc = 'assets/svg/sort_desc.svg';
+  static String line = 'assets/svg/line.svg';
   static String notExist = 'assets/png/not_exist.png';
   static String filterNotFound = 'assets/png/filter_not_found.png';
 }

@@ -71,6 +71,7 @@ flutter:
     - assets/svg/search.svg
     - assets/svg/sort_asc.svg
     - assets/svg/sort_desc.svg
+    - assets/svg/line.svg
     - assets/png/not_exist.png
     - assets/png/filter_not_found.png
 
