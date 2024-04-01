@@ -28,6 +28,7 @@ class _FiltersState extends State<Filters> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         toolbarHeight: 52,
         iconTheme: const IconThemeData(color: Colors.white),
@@ -41,86 +42,98 @@ class _FiltersState extends State<Filters> {
         ),
       ),
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: 24,
-                horizontal: 16,
-              ),
-              child: Text(
-                'Сортировать'.toUpperCase(),
-                style: AppStyles.countAndResult,
-              ),
-            ),
-            Row(
-              children: [
-                const SizedBox(width: 16),
-                Text(
-                  'По алфавиту',
-                  style: AppStyles.searchBar.copyWith(
-                    color: Colors.white,
-                  ),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 24,
+                  horizontal: 16,
                 ),
-                const Spacer(),
-                SvgPicture.asset(AppAssets.sortAsc),
-                Padding(
-                  padding: const EdgeInsets.only(
-                    right: 16,
-                    left: 24,
-                  ),
-                  child: SvgPicture.asset(AppAssets.sortDesc),
+                child: Text(
+                  'Сортировать'.toUpperCase(),
+                  style: AppStyles.countAndResult,
                 ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 36),
-              child: Divider(color: AppColors.searchBarBackground),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 16, bottom: 24),
-              child: Text(
-                'Статус'.toUpperCase(),
-                style: AppStyles.countAndResult,
               ),
-            ),
-            Column(
-              children: _statusList.map((list) {
-                return CheckboxList(
-                  text: list['name'],
-                  value: list['isChecked'],
-                  onChanged: (bool? value) {
-                    _selectCheckbox(list, value);
-                  },
-                );
-              }).toList(),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 36),
-              child: Divider(color: AppColors.searchBarBackground),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 16, bottom: 24),
-              child: Text(
-                'Пол'.toUpperCase(),
-                style: AppStyles.countAndResult,
+              Row(
+                children: [
+                  const SizedBox(width: 16),
+                  Text(
+                    'По алфавиту',
+                    style: AppStyles.searchBar.copyWith(
+                      color: Colors.white,
+                    ),
+                  ),
+                  const Spacer(),
+                  SvgPicture.asset(AppAssets.sortAsc),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      right: 16,
+                      left: 24,
+                    ),
+                    child: SvgPicture.asset(AppAssets.sortDesc),
+                  ),
+                ],
               ),
-            ),
-            Column(
-              children: _genderList.map((list) {
-                return CheckboxList(
-                  text: list['name'],
-                  value: list['isChecked'],
-                  onChanged: (bool? value) {
-                    _selectCheckbox(list, value);
-                  },
-                );
-              }).toList(),
-            ),
-          ],
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 36,
+                ),
+                child: Divider(color: AppColors.searchBarBackground),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: 16,
+                  bottom: 24,
+                ),
+                child: Text(
+                  'Статус'.toUpperCase(),
+                  style: AppStyles.countAndResult,
+                ),
+              ),
+              Column(
+                children: _statusList.map((list) {
+                  return _buildCheckboxList(list);
+                }).toList(),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 36,
+                ),
+                child: Divider(color: AppColors.searchBarBackground),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: 16,
+                  bottom: 24,
+                ),
+                child: Text(
+                  'Пол'.toUpperCase(),
+                  style: AppStyles.countAndResult,
+                ),
+              ),
+              Column(
+                children: _genderList.map((list) {
+                  return _buildCheckboxList(list);
+                }).toList(),
+              ),
+            ],
+          ),
         ),
       ),
+    );
+  }
+
+  CheckboxList _buildCheckboxList(list) {
+    return CheckboxList(
+      text: list['name'],
+      value: list['isChecked'],
+      onChanged: (bool? value) {
+        _selectCheckbox(list, value);
+      },
     );
   }
 

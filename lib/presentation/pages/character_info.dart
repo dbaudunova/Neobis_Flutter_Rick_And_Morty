@@ -90,7 +90,10 @@ class CharacterInfo extends StatelessWidget {
                   Row(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(top: 30, left: 16),
+                        padding: const EdgeInsets.only(
+                          top: 30,
+                          left: 16,
+                        ),
                         child: ColumnStyle(
                           character: character,
                           text: 'Пол',
@@ -98,7 +101,10 @@ class CharacterInfo extends StatelessWidget {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 118, top: 30),
+                        padding: const EdgeInsets.only(
+                          left: 118,
+                          top: 30,
+                        ),
                         child: ColumnStyle(
                           character: character,
                           text: 'Расса',
@@ -110,7 +116,10 @@ class CharacterInfo extends StatelessWidget {
                   Row(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(top: 20, left: 16),
+                        padding: const EdgeInsets.only(
+                          top: 20,
+                          left: 16,
+                        ),
                         child: ColumnStyle(
                           character: character,
                           text: 'Место рождения',
@@ -122,7 +131,10 @@ class CharacterInfo extends StatelessWidget {
                   Row(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(top: 20, left: 16),
+                        padding: const EdgeInsets.only(
+                          top: 20,
+                          left: 16,
+                        ),
                         child: ColumnStyle(
                           character: character,
                           text: 'Местоположение',
@@ -147,19 +159,25 @@ class CharacterInfo extends StatelessWidget {
                   ),
                 ),
               ),
-              ListView.builder(
-                  itemCount: _episodes.length,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    return EpisodeItem(
-                      episode: _episodes.elementAt(index),
-                    );
-                  })
+              _buildListView()
             ],
           ),
         ),
       ),
+    );
+  }
+
+  ListView _buildListView() {
+    return ListView.builder(
+        itemCount: _episodes.length,
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemBuilder: _listViewBuilder);
+  }
+
+  Widget? _listViewBuilder(context, index) {
+    return EpisodeItem(
+      episode: _episodes.elementAt(index),
     );
   }
 }

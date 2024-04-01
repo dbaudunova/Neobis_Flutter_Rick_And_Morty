@@ -109,7 +109,10 @@ class _CharacterCatalogState extends State<CharacterCatalog> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+              padding: const EdgeInsets.symmetric(
+                vertical: 12,
+                horizontal: 16,
+              ),
               child: SearchBarStyle(
                 hint: 'Найти персонажа',
                 trailing: [
@@ -124,10 +127,10 @@ class _CharacterCatalogState extends State<CharacterCatalog> {
             ),
             Row(
               children: [
-                 Padding(
+                Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 16,
-                    vertical: 24,
+                    vertical: 20,
                   ),
                   child: CharacterCountStyle(
                     text: 'Всего персонажей: ${_characters.length}',
@@ -161,18 +164,24 @@ class _CharacterCatalogState extends State<CharacterCatalog> {
 
   ListView _buildListView() {
     return ListView.builder(
-        itemCount: _characters.length,
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-            child: ListCharacterItem(
-              character: _characters.elementAt(index),
-              onTap: () {
-                _characterInfoNavigate(context, _characters.elementAt(index));
-              },
-            ),
-          );
-        });
+      itemCount: _characters.length,
+      itemBuilder: _listViewBuilder,
+    );
+  }
+
+  Widget? _listViewBuilder(context, index) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 16,
+        vertical: 20,
+      ),
+      child: ListCharacterItem(
+        character: _characters.elementAt(index),
+        onTap: () {
+          _characterInfoNavigate(context, _characters.elementAt(index));
+        },
+      ),
+    );
   }
 
   GridView _buildGridView() {
@@ -181,13 +190,15 @@ class _CharacterCatalogState extends State<CharacterCatalog> {
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
       ),
-      itemBuilder: (context, index) {
-        return GridCharacterItem(
-          character: _characters.elementAt(index),
-          onTap: () {
-            _characterInfoNavigate(context, _characters.elementAt(index));
-          },
-        );
+      itemBuilder: _gridViewBuilder,
+    );
+  }
+
+  Widget? _gridViewBuilder(context, index) {
+    return GridCharacterItem(
+      character: _characters.elementAt(index),
+      onTap: () {
+        _characterInfoNavigate(context, _characters.elementAt(index));
       },
     );
   }
