@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:neobis_flutter_rick_and_morty/config/constants/app_colors.dart';
 import 'package:neobis_flutter_rick_and_morty/config/constants/app_styles.dart';
-import 'package:neobis_flutter_rick_and_morty/data/remote/models/character.dart';
-import 'package:neobis_flutter_rick_and_morty/data/remote/models/episode.dart';
+import 'package:neobis_flutter_rick_and_morty/domain/models/character.dart';
+import 'package:neobis_flutter_rick_and_morty/domain/models/episode.dart';
 import 'package:neobis_flutter_rick_and_morty/presentation/widgets/column_style.dart';
 import 'package:neobis_flutter_rick_and_morty/presentation/widgets/episode_item.dart';
 import 'package:neobis_flutter_rick_and_morty/presentation/widgets/stack_image.dart';
@@ -167,17 +167,13 @@ class CharacterInfo extends StatelessWidget {
     );
   }
 
-  ListView _buildListView() {
-    return ListView.builder(
-        itemCount: _episodes.length,
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        itemBuilder: _listViewBuilder);
-  }
+  ListView _buildListView() => ListView.builder(
+      itemCount: _episodes.length,
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemBuilder: _listViewBuilder);
 
-  Widget? _listViewBuilder(context, index) {
-    return EpisodeItem(
-      episode: _episodes.elementAt(index),
-    );
-  }
+  Widget? _listViewBuilder(context, index) => EpisodeItem(
+        episode: _episodes.elementAt(index),
+      );
 }

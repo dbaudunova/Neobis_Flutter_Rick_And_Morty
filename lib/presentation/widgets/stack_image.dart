@@ -1,8 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:neobis_flutter_rick_and_morty/config/constants/app_colors.dart';
-import 'package:neobis_flutter_rick_and_morty/data/remote/models/character.dart';
-
+import 'package:neobis_flutter_rick_and_morty/domain/models/character.dart';
 
 class StackImage extends StatelessWidget {
   const StackImage({

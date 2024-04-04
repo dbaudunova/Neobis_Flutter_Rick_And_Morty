@@ -1,3 +1,5 @@
+import 'package:neobis_flutter_rick_and_morty/domain/models/episode.dart';
+
 class Character {
   final int id;
   final String name;
@@ -7,6 +9,9 @@ class Character {
   final Origin? origin;
   final Location? location;
   final String image;
+  final List<Episode>? episodes;
+  final String? url;
+  final String? created;
 
   Character({
     required this.id,
@@ -17,6 +22,9 @@ class Character {
     this.origin,
     this.location,
     required this.image,
+    this.episodes,
+    this.url,
+    this.created,
   });
 }
 

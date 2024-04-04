@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:neobis_flutter_rick_and_morty/config/constants/app_assets.dart';
-import 'package:neobis_flutter_rick_and_morty/data/remote/models/character.dart';
+import 'package:neobis_flutter_rick_and_morty/domain/models/character.dart';
 import 'package:neobis_flutter_rick_and_morty/presentation/pages/character_info.dart';
 import 'package:neobis_flutter_rick_and_morty/presentation/pages/filters.dart';
 import 'package:neobis_flutter_rick_and_morty/presentation/widgets/character_count_widget.dart';
@@ -166,12 +166,10 @@ class _CharacterCatalogState extends State<CharacterCatalog> {
     );
   }
 
-  ListView _buildListView() {
-    return ListView.builder(
-      itemCount: _characters.length,
-      itemBuilder: _listViewBuilder,
-    );
-  }
+  ListView _buildListView() => ListView.builder(
+        itemCount: _characters.length,
+        itemBuilder: _listViewBuilder,
+      );
 
   Widget? _listViewBuilder(context, index) {
     return Padding(
@@ -188,33 +186,29 @@ class _CharacterCatalogState extends State<CharacterCatalog> {
     );
   }
 
-  GridView _buildGridView() {
-    return GridView.builder(
-      itemCount: _characters.length,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-      ),
-      itemBuilder: _gridViewBuilder,
-    );
-  }
+  GridView _buildGridView() => GridView.builder(
+        itemCount: _characters.length,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+        ),
+        itemBuilder: _gridViewBuilder,
+      );
 
-  Widget? _gridViewBuilder(context, index) {
-    return GridCharacterItem(
-      character: _characters.elementAt(index),
-      onTap: () {
-        _characterInfoNavigate(context, _characters.elementAt(index));
-      },
-    );
-  }
+  Widget? _gridViewBuilder(context, index) => GridCharacterItem(
+        character: _characters.elementAt(index),
+        onTap: () {
+          _characterInfoNavigate(context, _characters.elementAt(index));
+        },
+      );
 
   void _characterInfoNavigate(context, character) {
     Navigator.push(
       context,
       MaterialPageRoute(
-          builder: (context) => CharacterInfo(
-                character: character,
-              ) //Filters(),
-          ),
+        builder: (context) => CharacterInfo(
+          character: character,
+        ), //Filters(),
+      ),
     );
   }
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:neobis_flutter_rick_and_morty/config/constants/app_styles.dart';
-import 'package:neobis_flutter_rick_and_morty/data/remote/models/character.dart';
+import 'package:neobis_flutter_rick_and_morty/domain/models/character.dart';
 
 class ListCharacterItem extends StatelessWidget {
   const ListCharacterItem({
