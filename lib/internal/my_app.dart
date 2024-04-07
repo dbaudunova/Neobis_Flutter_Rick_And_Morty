@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:neobis_flutter_rick_and_morty/config/constants/app_colors.dart';
 import 'package:neobis_flutter_rick_and_morty/data/remote/repository/character_repository_impl.dart';
-import 'package:neobis_flutter_rick_and_morty/domain/usecases/get_all_charecters_use_case.dart';
+import 'package:neobis_flutter_rick_and_morty/domain/usecases/get_all_characters_use_case.dart';
+import 'package:neobis_flutter_rick_and_morty/domain/usecases/get_episodes_use_case.dart';
 import 'package:neobis_flutter_rick_and_morty/presentation/bloc/character_bloc.dart';
+import 'package:neobis_flutter_rick_and_morty/presentation/bloc/episode/episode_bloc.dart';
 import 'package:neobis_flutter_rick_and_morty/presentation/pages/character_catalog.dart';
 
 class MyApp extends StatelessWidget {
@@ -17,6 +19,9 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => CharacterBloc(GetAllCharactersUseCase(CharacterRepositoryImpl())),
+        ), BlocProvider(
+          create: (context) =>
+              EpisodeBloc(GetEpisodesUseCase(CharacterRepositoryImpl())),
         ),
       ],
       child: MaterialApp(

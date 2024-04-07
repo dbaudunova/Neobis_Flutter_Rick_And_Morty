@@ -8,7 +8,7 @@ class EpisodeItem extends StatelessWidget {
     super.key, required this.episode,
   });
 
-  final Episode episode;
+  final EpisodeEntity episode;
 
   @override
   Widget build(BuildContext context) {
@@ -19,15 +19,15 @@ class EpisodeItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            episode.episode.toUpperCase(),
+            episode.episode!.toUpperCase(),
             style: AppStyles.episodeStyle,
           ),
           Text(
-            episode.name,
+            episode.name ?? '',
             style: AppStyles.nameStyle,
           ),
           Text(
-            episode.airDate,
+            episode.airDate ?? '',
             style: AppStyles.s14
                 .copyWith(color: AppColors.appTextColor),
           ),

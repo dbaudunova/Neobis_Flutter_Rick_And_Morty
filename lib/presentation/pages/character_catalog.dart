@@ -81,7 +81,7 @@ class _CharacterCatalogState extends State<CharacterCatalog> {
     }
     if (state is CharacterError) {
       return Padding(
-        padding: const EdgeInsets.only(top: 100),
+        padding: const EdgeInsets.only(top: 98),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -101,40 +101,40 @@ class _CharacterCatalogState extends State<CharacterCatalog> {
     if (state is CharacterDone) {
       return Expanded(
           child: Column(
-        children: [
-          Row(
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 20,
-                ),
-                child: CharacterCountStyle(
-                  text: 'Всего персонажей: ${state.characters?.length}',
-                ),
-              ),
-              const Spacer(),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 20,
-                  horizontal: 30,
-                ),
-                child: GestureDetector(
-                  onTap: () {
-                    _onIconTap();
-                  },
-                  child: SvgPicture.asset(
-                    _isGridView ? AppAssets.list : AppAssets.grid,
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 20,
+                    ),
+                    child: CharacterCountStyle(
+                      text: 'Всего персонажей: ${state.characters?.length}',
+                    ),
                   ),
-                ),
+                  const Spacer(),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 20,
+                      horizontal: 30,
+                    ),
+                    child: GestureDetector(
+                      onTap: () {
+                        _onIconTap();
+                      },
+                      child: SvgPicture.asset(
+                        _isGridView ? AppAssets.list : AppAssets.grid,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Expanded(
+                child: _isGridView ? _buildGridView(state) : _buildListView(state),
               ),
             ],
-          ),
-          Expanded(
-            child: _isGridView ? _buildGridView(state) : _buildListView(state),
-          ),
-        ],
-      ));
+          ));
     }
     return Center(
       child: Text(

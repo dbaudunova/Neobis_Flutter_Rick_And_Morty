@@ -1,5 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:neobis_flutter_rick_and_morty/domain/models/episode.dart';
 
 part 'character.g.dart';
 
@@ -11,7 +10,7 @@ class CharacterEntity {
   final String? gender;
   final Location? location;
   final String? image;
-  final List<Episode>? episodes;
+  final List<String>? episodes;
   final String? url;
   final String? created;
 

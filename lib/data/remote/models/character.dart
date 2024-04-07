@@ -13,6 +13,7 @@ class CharacterModel extends CharacterEntity {
     super.gender,
     super.location,
     super.image,
+    super.episodes
   });
 
   factory CharacterModel.fromJson(Map<String, dynamic> json) => _$CharacterModelFromJson(json);
