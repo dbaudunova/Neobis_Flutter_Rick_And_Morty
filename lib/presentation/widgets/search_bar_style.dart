@@ -9,14 +9,17 @@ class SearchBarStyle extends StatelessWidget {
     super.key,
     required this.hint,
     required this.trailing,
+    required this.onChanged,
   });
 
   final String hint;
   final List<Widget> trailing;
+  final void Function(String?) onChanged;
 
   @override
   Widget build(BuildContext context) {
     return SearchBar(
+      onChanged: onChanged,
       textStyle: MaterialStateTextStyle.resolveWith(
         (states) => const TextStyle(color: Colors.white, fontSize: 16),
       ),

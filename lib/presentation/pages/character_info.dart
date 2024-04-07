@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:neobis_flutter_rick_and_morty/config/constants/app_colors.dart';
 import 'package:neobis_flutter_rick_and_morty/config/constants/app_styles.dart';
 import 'package:neobis_flutter_rick_and_morty/domain/models/character.dart';
+import 'package:neobis_flutter_rick_and_morty/domain/models/enums.dart';
 import 'package:neobis_flutter_rick_and_morty/domain/models/episode.dart';
 import 'package:neobis_flutter_rick_and_morty/presentation/widgets/column_style.dart';
 import 'package:neobis_flutter_rick_and_morty/presentation/widgets/episode_item.dart';
@@ -83,7 +84,13 @@ class CharacterInfo extends StatelessWidget {
               ),
               Text(
                 character.status!.toUpperCase(),
-                style: AppStyles.statusAlive,
+                style: AppStyles.statusAlive.copyWith(
+                  color: statusColor(
+                    statusString(
+                      character.status,
+                    ),
+                  ),
+                ),
               ),
               Column(
                 children: [
@@ -174,6 +181,6 @@ class CharacterInfo extends StatelessWidget {
       itemBuilder: _listViewBuilder);
 
   Widget? _listViewBuilder(context, index) => EpisodeItem(
-    episode: _episodes.elementAt(index),
-  );
+        episode: _episodes.elementAt(index),
+      );
 }

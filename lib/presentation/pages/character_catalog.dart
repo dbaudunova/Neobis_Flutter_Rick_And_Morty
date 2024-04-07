@@ -24,8 +24,7 @@ class _CharacterCatalogState extends State<CharacterCatalog> {
 
   @override
   void initState() {
-    BlocProvider.of<CharacterBloc>(context)
-        .add(GetCharacters(CharacterEntity()));
+    BlocProvider.of<CharacterBloc>(context).add(GetCharacters());
     super.initState();
   }
 
@@ -54,6 +53,11 @@ class _CharacterCatalogState extends State<CharacterCatalog> {
                     icon: SvgPicture.asset(AppAssets.filter),
                   ),
                 ],
+                onChanged: (String? value) {
+                  BlocProvider.of<CharacterBloc>(context).add(
+                    GetCharacters(name: value),
+                  );
+                },
               ),
             ),
             _buildBlocBuilder(),
@@ -97,40 +101,40 @@ class _CharacterCatalogState extends State<CharacterCatalog> {
     if (state is CharacterDone) {
       return Expanded(
           child: Column(
+        children: [
+          Row(
             children: [
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 20,
-                    ),
-                    child: CharacterCountStyle(
-                      text: 'Всего персонажей: ${state.characters?.length}',
-                    ),
-                  ),
-                  const Spacer(),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 20,
-                      horizontal: 30,
-                    ),
-                    child: GestureDetector(
-                      onTap: () {
-                        _onIconTap();
-                      },
-                      child: SvgPicture.asset(
-                        _isGridView ? AppAssets.list : AppAssets.grid,
-                      ),
-                    ),
-                  ),
-                ],
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 20,
+                ),
+                child: CharacterCountStyle(
+                  text: 'Всего персонажей: ${state.characters?.length}',
+                ),
               ),
-              Expanded(
-                child: _isGridView ? _buildGridView(state) : _buildListView(state),
+              const Spacer(),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 20,
+                  horizontal: 30,
+                ),
+                child: GestureDetector(
+                  onTap: () {
+                    _onIconTap();
+                  },
+                  child: SvgPicture.asset(
+                    _isGridView ? AppAssets.list : AppAssets.grid,
+                  ),
+                ),
               ),
             ],
-          ));
+          ),
+          Expanded(
+            child: _isGridView ? _buildGridView(state) : _buildListView(state),
+          ),
+        ],
+      ));
     }
     return Center(
       child: Text(

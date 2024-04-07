@@ -4,17 +4,27 @@ import 'package:neobis_flutter_rick_and_morty/domain/repository/character_reposi
 
 class CharacterRepositoryImpl implements CharacterRepository {
   @override
-  Future<List<CharacterModel>> getAllCharacters() async {
-    const String url = 'https://rickandmortyapi.com/api/character';
-    return _getCharacterFromUrl(url);
+  Future<List<CharacterModel>> getAllCharacters(String name) async {
+    String url = 'https://rickandmortyapi.com/api/character/?name=$name';
+    return _getCharactersFromUrl(url, []);
   }
 
-  Future<List<CharacterModel>> _getCharacterFromUrl(String url) async {
+  Future<List<CharacterModel>> _getCharactersFromUrl(
+    String url,
+    List<CharacterModel> allCharacters,
+  ) async {
     final response = await Dio().get(url);
     final List<dynamic> results = response.data['results'];
-    final List<CharacterModel> characters = results
-        .map((json) => CharacterModel.fromJson(json))
-        .toList();
-    return characters;
+    final List<CharacterModel> characters =
+    results.map((json) => CharacterModel.fromJson(json)).toList();
+
+    allCharacters.addAll(characters);
+
+    final nextPageUrl = response.data['info']['next'];
+    if (nextPageUrl != null) {
+      return _getCharactersFromUrl(nextPageUrl, allCharacters);
+    } else {
+      return allCharacters;
+    }
   }
 }

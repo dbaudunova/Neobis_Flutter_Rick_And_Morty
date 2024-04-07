@@ -17,7 +17,7 @@ class CharacterBloc extends Bloc<CharacterEvent, CharacterState> {
       GetCharacters event, Emitter<CharacterState> emit) async {
     emit(const CharacterLoading());
     try {
-      final dataState = await _getCharacterUseCase.call();
+      final dataState = await _getCharacterUseCase.call(event.name ?? '');
       emit(CharacterDone(dataState));
     } on DioException catch (e) {
       emit(CharacterError(e));
