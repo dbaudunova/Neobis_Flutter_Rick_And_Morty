@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:neobis_flutter_rick_and_morty/config/constants/app_assets.dart';
+import 'package:neobis_flutter_rick_and_morty/config/constants/app_styles.dart';
 import 'package:neobis_flutter_rick_and_morty/domain/models/character.dart';
+import 'package:neobis_flutter_rick_and_morty/presentation/bloc/character_bloc.dart';
 import 'package:neobis_flutter_rick_and_morty/presentation/pages/character_info.dart';
 import 'package:neobis_flutter_rick_and_morty/presentation/pages/filters.dart';
 import 'package:neobis_flutter_rick_and_morty/presentation/widgets/character_count_widget.dart';
@@ -17,90 +20,14 @@ class CharacterCatalog extends StatefulWidget {
 }
 
 class _CharacterCatalogState extends State<CharacterCatalog> {
-  bool isGridView = false;
+  bool _isGridView = false;
 
-  final _characters = [
-    Character(
-      id: 0,
-      name: 'Рик Санчез',
-      status: 'Живой',
-      species: 'Человек',
-      origin: Origin(name: 'Земля'),
-      location: Location(name: 'Земля (Измерение подменны)'),
-      gender: 'Мужской',
-      image: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
-    ),
-    Character(
-      id: 1,
-      name: 'Морти Смит',
-      status: 'Живой',
-      species: 'Человек',
-      origin: Origin(name: 'Земля'),
-      location: Location(name: 'Земля'),
-      gender: 'Мужской',
-      image: 'https://rickandmortyapi.com/api/character/avatar/2.jpeg',
-    ),
-    Character(
-      id: 2,
-      name: 'Саммер Смит',
-      status: 'Живой',
-      species: 'Человек',
-      origin: Origin(name: 'Земля'),
-      location: Location(name: 'Земля (Измерение подменны)'),
-      gender: 'Женский',
-      image: 'https://rickandmortyapi.com/api/character/avatar/3.jpeg',
-    ),
-    Character(
-      id: 3,
-      name: 'Рик Санчез',
-      status: 'Живой',
-      species: 'Человек',
-      origin: Origin(name: 'Земля'),
-      location: Location(name: 'Земля (Измерение подменны)'),
-      gender: 'Мужской',
-      image: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
-    ),
-    Character(
-      id: 4,
-      name: 'Рик Санчез',
-      status: 'Живой',
-      species: 'Человек',
-      origin: Origin(name: 'Земля'),
-      location: Location(name: 'Земля (Измерение подменны)'),
-      gender: 'Мужской',
-      image: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
-    ),
-    Character(
-      id: 5,
-      name: 'Рик Санчез',
-      status: 'Живой',
-      species: 'Человек',
-      origin: Origin(name: 'Земля'),
-      location: Location(name: 'Земля (Измерение подменны)'),
-      gender: 'Мужской',
-      image: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
-    ),
-    Character(
-      id: 6,
-      name: 'Рик Санчез',
-      status: 'Живой',
-      species: 'Человек',
-      origin: Origin(name: 'Земля'),
-      location: Location(name: 'Земля (Измерение подменны)'),
-      gender: 'Мужской',
-      image: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
-    ),
-    Character(
-      id: 7,
-      name: 'Рик Санчез',
-      status: 'Живой',
-      species: 'Человек',
-      origin: Origin(name: 'Земля'),
-      location: Location(name: 'Земля (Измерение подменны)'),
-      gender: 'Мужской',
-      image: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
-    ),
-  ];
+  @override
+  void initState() {
+    BlocProvider.of<CharacterBloc>(context)
+        .add(GetCharacters(CharacterEntity()));
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -129,79 +56,126 @@ class _CharacterCatalogState extends State<CharacterCatalog> {
                 ],
               ),
             ),
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 20,
-                  ),
-                  child: CharacterCountStyle(
-                    text: 'Всего персонажей: ${_characters.length}',
-                  ),
-                ),
-                const Spacer(),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 20,
-                    horizontal: 30,
-                  ),
-                  child: GestureDetector(
-                    onTap: () {
-                      _onIconTap();
-                    },
-                    child: SvgPicture.asset(
-                      isGridView ? AppAssets.list : AppAssets.grid,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Expanded(
-              child: isGridView ? _buildGridView() : _buildListView(),
-            ),
+            _buildBlocBuilder(),
           ],
         ),
       ),
     );
   }
 
-  ListView _buildListView() => ListView.builder(
-        itemCount: _characters.length,
-        itemBuilder: _listViewBuilder,
-      );
+  BlocBuilder<CharacterBloc, CharacterState> _buildBlocBuilder() {
+    return BlocBuilder<CharacterBloc, CharacterState>(builder: _buildBuilder);
+  }
 
-  Widget? _listViewBuilder(context, index) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 16,
-        vertical: 20,
+  Widget _buildBuilder(context, state) {
+    if (state is CharacterLoading) {
+      return const Expanded(
+        child: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
+    if (state is CharacterError) {
+      return Padding(
+        padding: const EdgeInsets.only(top: 100),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Image.asset(AppAssets.notExist),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 28),
+              child: Text(
+                'Персонаж с таким именем не найден',
+                textAlign: TextAlign.center,
+                style: AppStyles.searchBar,
+              ),
+            )
+          ],
+        ),
+      );
+    }
+    if (state is CharacterDone) {
+      return Expanded(
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 20,
+                    ),
+                    child: CharacterCountStyle(
+                      text: 'Всего персонажей: ${state.characters?.length}',
+                    ),
+                  ),
+                  const Spacer(),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 20,
+                      horizontal: 30,
+                    ),
+                    child: GestureDetector(
+                      onTap: () {
+                        _onIconTap();
+                      },
+                      child: SvgPicture.asset(
+                        _isGridView ? AppAssets.list : AppAssets.grid,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Expanded(
+                child: _isGridView ? _buildGridView(state) : _buildListView(state),
+              ),
+            ],
+          ));
+    }
+    return Center(
+      child: Text(
+        'Что-то пошло не так',
+        style: AppStyles.searchBar,
       ),
-      child: ListCharacterItem(
-        character: _characters.elementAt(index),
+    );
+  }
+
+  ListView _buildListView(CharacterDone state) {
+    return ListView.builder(
+      itemCount: state.characters?.length,
+      itemBuilder: (context, index) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 20,
+          ),
+          child: ListCharacterItem(
+            character: state.characters![index],
+            onTap: () {
+              _characterInfoNavigate(context, state.characters![index]);
+            },
+          ),
+        );
+      },
+    );
+  }
+
+  GridView _buildGridView(CharacterDone state) {
+    return GridView.builder(
+      itemCount: state.characters?.length,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+      ),
+      itemBuilder: (context, index) => GridCharacterItem(
+        character: state.characters![index],
         onTap: () {
-          _characterInfoNavigate(context, _characters.elementAt(index));
+          _characterInfoNavigate(context, state.characters![index]);
         },
       ),
     );
   }
 
-  GridView _buildGridView() => GridView.builder(
-        itemCount: _characters.length,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-        ),
-        itemBuilder: _gridViewBuilder,
-      );
-
-  Widget? _gridViewBuilder(context, index) => GridCharacterItem(
-        character: _characters.elementAt(index),
-        onTap: () {
-          _characterInfoNavigate(context, _characters.elementAt(index));
-        },
-      );
-
-  void _characterInfoNavigate(context, character) {
+  void _characterInfoNavigate(context, CharacterEntity character) {
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -214,7 +188,7 @@ class _CharacterCatalogState extends State<CharacterCatalog> {
 
   void _onIconTap() {
     setState(() {
-      isGridView = !isGridView;
+      _isGridView = !_isGridView;
     });
   }
 

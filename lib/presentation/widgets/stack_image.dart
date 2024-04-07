@@ -9,7 +9,7 @@ class StackImage extends StatelessWidget {
     required this.character,
   });
 
-  final Character character;
+  final CharacterEntity character;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class StackImage extends StatelessWidget {
               BlendMode.srcATop,
             ),
             child: Image.network(
-              character.image,
+              character.image ?? '',
               fit: BoxFit.cover,
               width: double.infinity,
             ),
@@ -44,7 +44,7 @@ class StackImage extends StatelessWidget {
             backgroundColor: AppColors.appColor,
             child:  CircleAvatar(
               backgroundImage: NetworkImage(
-                  character.image),
+                  character.image ?? ''),
               radius: 90,
             ),
           ),

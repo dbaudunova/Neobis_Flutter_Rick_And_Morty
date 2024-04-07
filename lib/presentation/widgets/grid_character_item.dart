@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:neobis_flutter_rick_and_morty/config/constants/app_styles.dart';
 import 'package:neobis_flutter_rick_and_morty/domain/models/character.dart';
+import 'package:neobis_flutter_rick_and_morty/domain/models/enums.dart';
 
 class GridCharacterItem extends StatelessWidget {
   const GridCharacterItem({
@@ -9,7 +10,7 @@ class GridCharacterItem extends StatelessWidget {
     required this.onTap,
   });
 
-  final Character character;
+  final CharacterEntity character;
   final VoidCallback onTap;
 
   @override
@@ -23,18 +24,24 @@ class GridCharacterItem extends StatelessWidget {
             child: Image(
               width: 120,
               height: 120,
-              image: NetworkImage(character.image),
+              image: NetworkImage(character.image ?? ''),
             ),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 12),
             child: Text(
-              character.status.toUpperCase(),
-              style: AppStyles.statusAlive,
+              character.status?.toUpperCase() ?? 'Unknown Status',
+              style: AppStyles.statusAlive.copyWith(
+                color: statusColor(
+                  statusString(
+                    character.status,
+                  ),
+                ),
+              ),
             ),
           ),
           Text(
-            character.name,
+            character.name ?? '',
             style: AppStyles.nameStyle,
           ),
           Text(

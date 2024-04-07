@@ -1,12 +1,12 @@
 import 'package:neobis_flutter_rick_and_morty/domain/models/character.dart';
 import 'package:neobis_flutter_rick_and_morty/domain/repository/character_repository.dart';
 
-class SearchCharacter{
+class GetAllCharactersUseCase {
   final CharacterRepository repository;
 
-  SearchCharacter(this.repository);
+  GetAllCharactersUseCase(this.repository);
 
-  Future<List<Character>> searchCharacter(String name) async {
-    return await repository.searchCharacter(name);
+  Future<List<CharacterEntity>> call() async {
+    return await repository.getAllCharacters();
   }
 }

@@ -10,7 +10,7 @@ import 'package:neobis_flutter_rick_and_morty/presentation/widgets/stack_image.d
 class CharacterInfo extends StatelessWidget {
   CharacterInfo({super.key, required this.character});
 
-  final Character character;
+  final CharacterEntity character;
 
   final _episodes = [
     Episode(
@@ -75,14 +75,14 @@ class CharacterInfo extends StatelessWidget {
                 height: 100,
               ),
               Text(
-                character.name,
+                character.name ?? '',
                 style: AppStyles.nameStyle.copyWith(
                   fontSize: 34,
                   fontWeight: FontWeight.normal,
                 ),
               ),
               Text(
-                character.status.toUpperCase(),
+                character.status!.toUpperCase(),
                 style: AppStyles.statusAlive,
               ),
               Column(
@@ -97,7 +97,7 @@ class CharacterInfo extends StatelessWidget {
                         child: ColumnStyle(
                           character: character,
                           text: 'Пол',
-                          value: character.gender,
+                          value: character.gender ?? '',
                         ),
                       ),
                       Padding(
@@ -108,7 +108,7 @@ class CharacterInfo extends StatelessWidget {
                         child: ColumnStyle(
                           character: character,
                           text: 'Расса',
-                          value: character.species,
+                          value: character.species ?? '',
                         ),
                       ),
                     ],
@@ -123,7 +123,7 @@ class CharacterInfo extends StatelessWidget {
                         child: ColumnStyle(
                           character: character,
                           text: 'Место рождения',
-                          value: character.origin!.name,
+                          value: character.location!.name ?? '',
                         ),
                       ),
                     ],
@@ -138,7 +138,7 @@ class CharacterInfo extends StatelessWidget {
                         child: ColumnStyle(
                           character: character,
                           text: 'Местоположение',
-                          value: character.location!.name,
+                          value: character.location!.name ?? '',
                         ),
                       ),
                     ],
@@ -174,6 +174,6 @@ class CharacterInfo extends StatelessWidget {
       itemBuilder: _listViewBuilder);
 
   Widget? _listViewBuilder(context, index) => EpisodeItem(
-        episode: _episodes.elementAt(index),
-      );
+    episode: _episodes.elementAt(index),
+  );
 }

@@ -11,7 +11,7 @@ class ColumnStyle extends StatelessWidget {
     required this.value,
   });
 
-  final Character character;
+  final CharacterEntity character;
   final String text;
   final String value;
 
