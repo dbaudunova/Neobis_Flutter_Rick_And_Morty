@@ -1,10 +1,9 @@
 part of 'episode_bloc.dart';
 
-abstract class EpisodeEvent {
-}
+abstract class EpisodeEvent {}
 
 class GetEpisodes extends EpisodeEvent {
-  final String? url;
+  final List<String> url;
 
-  GetEpisodes({this.url});
+  GetEpisodes({required this.url});
 }

@@ -19,7 +19,7 @@ class EpisodeItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            episode.episode!.toUpperCase(),
+            episode.episode ?? ''.toUpperCase(),
             style: AppStyles.episodeStyle,
           ),
           Text(

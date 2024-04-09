@@ -166,8 +166,10 @@ class _CharacterCatalogState extends State<CharacterCatalog> {
 
   GridView _buildGridView(CharacterDone state) {
     return GridView.builder(
+      shrinkWrap: true,
       itemCount: state.characters?.length,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        mainAxisExtent: 250,
         crossAxisCount: 2,
       ),
       itemBuilder: (context, index) => GridCharacterItem(

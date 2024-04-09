@@ -10,7 +10,7 @@ class CharacterEntity {
   final String? gender;
   final Location? location;
   final String? image;
-  final List<String>? episodes;
+  final List<String>? episode;
   final String? url;
   final String? created;
 
@@ -22,7 +22,7 @@ class CharacterEntity {
     this.gender,
     this.location,
     this.image,
-    this.episodes,
+    this.episode,
     this.url,
     this.created,
   });

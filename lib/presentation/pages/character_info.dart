@@ -19,13 +19,12 @@ class CharacterInfo extends StatefulWidget {
 }
 
 class _CharacterInfoState extends State<CharacterInfo> {
-
   @override
   void initState() {
-    BlocProvider.of<EpisodeBloc>(context).add(GetEpisodes());
+    BlocProvider.of<EpisodeBloc>(context).add(GetEpisodes(url: widget.character.episode as List<String>));
     super.initState();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -149,14 +148,7 @@ class _CharacterInfoState extends State<CharacterInfo> {
               ),
             );
           } else {
-            return ListView.builder(
-              itemCount: state.episodes?.length,
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) => EpisodeItem(
-                episode: state.episodes![index],
-              ),
-            );
+            return _listView(state);
           }
         }
         return Text(
@@ -164,4 +156,15 @@ class _CharacterInfoState extends State<CharacterInfo> {
           style: AppStyles.episodeStyle,
         );
       });
+
+  ListView _listView(EpisodeDone state) {
+    return ListView.builder(
+      itemCount: state.episodes?.length,
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemBuilder: (context, index) => EpisodeItem(
+        episode: state.episodes![index],
+      ),
+    );
+  }
 }

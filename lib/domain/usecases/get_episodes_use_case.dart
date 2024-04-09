@@ -1,12 +1,12 @@
 import 'package:neobis_flutter_rick_and_morty/domain/models/episode.dart';
-import 'package:neobis_flutter_rick_and_morty/domain/repository/character_repository.dart';
+import 'package:neobis_flutter_rick_and_morty/domain/repository/episode_repository.dart';
 
 class GetEpisodesUseCase {
-  final CharacterRepository repository;
+  final EpisodeRepository repository;
 
   GetEpisodesUseCase(this.repository);
 
-  Future<List<EpisodeEntity>> call(String episode) async {
-    return await repository.getEpisodes(episode);
+  Future<List<EpisodeEntity>> call(String episodes) async {
+    return await repository.getEpisodes(episodes);
   }
 }
